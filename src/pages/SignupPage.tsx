@@ -80,6 +80,14 @@ const SignupPage = () => {
                 </Form.Item>
 
                 <Form.Item>
+                    <Typography.Paragraph style={{ fontSize: 14 }}>
+                        By signing up, you will agree to our
+                        <Link to="/privacy-policy"> Privacy Policy</Link> and
+                        <Link to="/terms-of-use"> Terms of Use</Link>.
+                    </Typography.Paragraph>
+                </Form.Item>
+
+                <Form.Item>
                     <Flex vertical gap={8}>
                         <Button
                             block
