@@ -1,13 +1,26 @@
-import React from "react"
+import React, { useState } from "react"
 import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons"
-import { Button, Form, Input, Typography, Space, Flex } from "antd"
+import { Button, Form, Input, Typography, Space, Flex, message } from "antd"
 import googleIcon from "../assets/images/icons8-google.svg"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import PageHeader from "../components/PageHeader"
 
 const SignupPage = () => {
+    const [loading, setLoading] = useState(false)
+    const navigate = useNavigate()
+
     const onFinish = (values: any) => {
         console.log("Received values of form: ", values)
+        setLoading(true)
+
+        setTimeout(() => {
+            setLoading(false)
+            message.success("You have successfuly signned up!")
+
+            setTimeout(() => {
+                navigate("/auth/login")
+            }, 500)
+        }, 1500)
     }
 
     return (
@@ -16,6 +29,7 @@ const SignupPage = () => {
             <Form
                 name="signup"
                 layout="vertical"
+                autoComplete="off"
                 requiredMark="optional"
                 onFinish={onFinish}
                 style={{ marginInline: "auto", maxWidth: 400 }}
@@ -26,7 +40,12 @@ const SignupPage = () => {
                     rules={[
                         {
                             required: true,
-                            message: "Please input your Full name!"
+                            message: "Please input your Full name!",
+                            whitespace: true
+                        },
+                        {
+                            min: 4,
+                            message: "Full name must be atleast 4 characters!"
                         }
                     ]}
                 >
@@ -63,20 +82,25 @@ const SignupPage = () => {
                     rules={[
                         {
                             required: true,
-                            message: "Please input your Password!"
+                            message: "Please input your Password!",
+                            min: 6
                         }
                     ]}
                 >
-                    <Input.Password
-                        prefix={<LockOutlined />}
-                        placeholder="Enter a strong password"
-                        size="large"
-                        style={{ borderRadius: 4 }}
-                    />
-                    <Typography.Text style={{ fontSize: 12, color: "#8c8c8c" }}>
-                        Minimum of 8 characters, with upper and lowercase and a
-                        number and a symbol.
-                    </Typography.Text>
+                    <div>
+                        <Input.Password
+                            prefix={<LockOutlined />}
+                            placeholder="Enter a strong password"
+                            size="large"
+                            style={{ borderRadius: 4 }}
+                        />
+                        <Typography.Text
+                            style={{ fontSize: 12, color: "#8c8c8c" }}
+                        >
+                            Minimum of 8 characters, with upper and lowercase
+                            and a number and a symbol.
+                        </Typography.Text>
+                    </div>
                 </Form.Item>
 
                 <Form.Item>
@@ -94,6 +118,7 @@ const SignupPage = () => {
                             type="primary"
                             htmlType="submit"
                             size="large"
+                            loading={loading}
                             style={{ borderRadius: 4 }}
                         >
                             Sign up
