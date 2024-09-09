@@ -1,13 +1,35 @@
-import React from "react"
+import React, { useState } from "react"
 import { LockOutlined, UserOutlined } from "@ant-design/icons"
-import { Button, Checkbox, Form, Input, Flex, Typography, Space } from "antd"
+import {
+    Button,
+    Checkbox,
+    Form,
+    Input,
+    Flex,
+    Typography,
+    Space,
+    message
+} from "antd"
 import googleIcon from "../assets/images/icons8-google.svg"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import PageHeader from "../components/PageHeader"
 
 const LoginPage = () => {
+    const [loading, setLoading] = useState(false)
+    const navigate = useNavigate()
+
     const onFinish = (values: any) => {
         console.log("Received values of form: ", values)
+        setLoading(true)
+
+        setTimeout(() => {
+            setLoading(false)
+            message.success("You have successfuly logged!")
+
+            setTimeout(() => {
+                navigate("/auth/user")
+            }, 500)
+        }, 1500)
     }
 
     return (
@@ -16,6 +38,7 @@ const LoginPage = () => {
             <Form
                 name="login"
                 layout="vertical"
+                autoComplete="off"
                 requiredMark="optional"
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
@@ -44,7 +67,8 @@ const LoginPage = () => {
                     rules={[
                         {
                             required: true,
-                            message: "Please input your Password!"
+                            message: "Please input your Password!",
+                            min: 6
                         }
                     ]}
                 >
@@ -77,6 +101,7 @@ const LoginPage = () => {
                             type="primary"
                             htmlType="submit"
                             size="large"
+                            loading={loading}
                             style={{ borderRadius: 4 }}
                         >
                             Log in
