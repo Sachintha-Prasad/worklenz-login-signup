@@ -10,6 +10,7 @@ import LoginPage from "./pages/LoginPage"
 import SignupPage from "./pages/SignupPage"
 import ForgotPasswordPage from "./pages/ForgotPasswordPage"
 import AuthLayout from "./layouts/AuthLayout"
+import UserPage from "./pages/UserPage"
 
 const App = () => {
     const router = createBrowserRouter(
@@ -22,6 +23,7 @@ const App = () => {
                         path="/auth/forgot-password"
                         element={<ForgotPasswordPage />}
                     />
+                    <Route path="/auth/user" element={<UserPage />} />
                 </Route>
             </Route>
         )
