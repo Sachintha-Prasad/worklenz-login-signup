@@ -1,20 +1,28 @@
 import React from "react"
 import { UserOutlined } from "@ant-design/icons"
-import { Button, Flex, Form, Input, Typography } from "antd"
+import { Button, Flex, Form, Input, message, Typography } from "antd"
 import { Link } from "react-router-dom"
 import PageHeader from "../components/PageHeader"
 
 const ForgotPasswordPage = () => {
+    const [form] = Form.useForm()
+
     const onFinish = (values: any) => {
         console.log("Received values of form: ", values)
+        message.success(
+            `Password reset email sent to your Email address: ${values.email}`
+        )
+        form.resetFields()
     }
 
     return (
         <div>
             <PageHeader description="Please enter your email address. You will receive a link to create a new password via email." />
             <Form
-                name="login"
+                name="forgot-password"
+                form={form}
                 layout="vertical"
+                autoComplete="off"
                 requiredMark="optional"
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
