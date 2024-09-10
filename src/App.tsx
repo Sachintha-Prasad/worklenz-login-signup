@@ -5,17 +5,14 @@ import {
     Route,
     RouterProvider
 } from "react-router-dom"
+import { Button, ConfigProvider, theme } from "antd"
+import { MoonOutlined, SunOutlined } from "@ant-design/icons"
 
 import LoginPage from "./pages/LoginPage"
 import SignupPage from "./pages/SignupPage"
 import ForgotPasswordPage from "./pages/ForgotPasswordPage"
 import AuthLayout from "./layouts/AuthLayout"
 import UserPage from "./pages/UserPage"
-
-import { Button, ConfigProvider, Switch, theme } from "antd"
-import { MoonOutlined, SunOutlined } from "@ant-design/icons"
-
-const { darkAlgorithm, defaultAlgorithm } = theme
 
 const App = () => {
     const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(false)
@@ -42,7 +39,9 @@ const App = () => {
     return (
         <ConfigProvider
             theme={{
-                algorithm: isDarkModeEnabled ? darkAlgorithm : defaultAlgorithm,
+                algorithm: isDarkModeEnabled
+                    ? theme.darkAlgorithm
+                    : theme.defaultAlgorithm,
                 components: {
                     Layout: {
                         colorBgLayout: isDarkModeEnabled ? "black" : "white"
@@ -50,12 +49,6 @@ const App = () => {
                 }
             }}
         >
-            {/* <Switch
-                onChange={handleDarkModeToggle}
-                style={{ position: "absolute", top: 48, right: "10%" }}
-                title="theme-switch"
-            /> */}
-
             <Button
                 type={isDarkModeEnabled ? "primary" : "default"}
                 icon={isDarkModeEnabled ? <SunOutlined /> : <MoonOutlined />}

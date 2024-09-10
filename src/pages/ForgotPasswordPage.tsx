@@ -15,7 +15,7 @@ const ForgotPasswordPage = () => {
 
         setTimeout(() => {
             message.success(
-                `Password reset mail was sent to your Email check your inbox!`
+                `Password reset mail was sent to your Email, check your inbox!`
             )
             setIsLoading(false)
             form.resetFields()

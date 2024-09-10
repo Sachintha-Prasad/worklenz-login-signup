@@ -12,7 +12,7 @@ const PageHeader = ({ description }: PageHeaderProp) => {
             <img
                 src={logo}
                 alt="worklenz logo"
-                style={{ width: "100%", maxWidth: 200 }}
+                style={{ width: "100%", maxWidth: 220 }}
             />
             <Typography.Text
                 style={{ color: "#8c8c8c", maxWidth: 400, textAlign: "center" }}
