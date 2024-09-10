@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import {
     createBrowserRouter,
     createRoutesFromElements,
@@ -12,7 +12,17 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage"
 import AuthLayout from "./layouts/AuthLayout"
 import UserPage from "./pages/UserPage"
 
+import { ConfigProvider, Switch, theme } from "antd"
+
+const { darkAlgorithm, defaultAlgorithm } = theme
+
 const App = () => {
+    const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(false)
+
+    const handleDarkModeToggle = () => {
+        setIsDarkModeEnabled((prev) => !prev)
+    }
+
     const router = createBrowserRouter(
         createRoutesFromElements(
             <Route path="/">
@@ -28,7 +38,25 @@ const App = () => {
             </Route>
         )
     )
-    return <RouterProvider router={router} />
+    return (
+        <ConfigProvider
+            theme={{
+                algorithm: isDarkModeEnabled ? darkAlgorithm : defaultAlgorithm,
+                components: {
+                    Layout: {
+                        colorBgLayout: isDarkModeEnabled ? "black" : "white"
+                    }
+                }
+            }}
+        >
+            <Switch
+                onChange={handleDarkModeToggle}
+                style={{ position: "absolute", top: 48, right: "10%" }}
+                title="theme-switch"
+            />
+            <RouterProvider router={router} />
+        </ConfigProvider>
+    )
 }
 
 export default App
