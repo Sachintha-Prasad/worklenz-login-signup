@@ -5,7 +5,7 @@ import {
     Route,
     RouterProvider
 } from "react-router-dom"
-import { Button, ConfigProvider, theme } from "antd"
+import { Button, ConfigProvider, Flex, Space, theme } from "antd"
 import { MoonOutlined, SunOutlined } from "@ant-design/icons"
 
 import LoginPage from "./pages/LoginPage"
@@ -13,6 +13,7 @@ import SignupPage from "./pages/SignupPage"
 import ForgotPasswordPage from "./pages/ForgotPasswordPage"
 import AuthLayout from "./layouts/AuthLayout"
 import UserPage from "./pages/UserPage"
+import LanguageSelector from "./components/LanguageSelector"
 
 const App = () => {
     const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(false)
@@ -49,13 +50,22 @@ const App = () => {
                 }
             }}
         >
-            <Button
-                type={isDarkModeEnabled ? "primary" : "default"}
-                icon={isDarkModeEnabled ? <SunOutlined /> : <MoonOutlined />}
-                shape="circle"
+            <Flex
+                align="center"
+                justify="center"
+                gap={12}
                 style={{ position: "absolute", top: 48, right: "10%" }}
-                onClick={handleDarkModeToggle}
-            />
+            >
+                <LanguageSelector />
+                <Button
+                    type={isDarkModeEnabled ? "primary" : "default"}
+                    icon={
+                        isDarkModeEnabled ? <SunOutlined /> : <MoonOutlined />
+                    }
+                    shape="circle"
+                    onClick={handleDarkModeToggle}
+                />
+            </Flex>
 
             <RouterProvider router={router} />
         </ConfigProvider>
