@@ -1,18 +1,29 @@
-import React from "react"
+import React, { useState } from "react"
 import { UserOutlined } from "@ant-design/icons"
 import { Button, Flex, Form, Input, message, Typography } from "antd"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import PageHeader from "../components/PageHeader"
 
 const ForgotPasswordPage = () => {
     const [form] = Form.useForm()
+    const [isLoading, setIsLoading] = useState(false)
+    const navigate = useNavigate()
 
     const onFinish = (values: any) => {
         console.log("Received values of form: ", values)
-        message.success(
-            `Password reset email sent to your Email address: ${values.email}`
-        )
-        form.resetFields()
+        setIsLoading(true)
+
+        setTimeout(() => {
+            message.success(
+                `Password reset mail was sent to your Email check your inbox!`
+            )
+            setIsLoading(false)
+            form.resetFields()
+
+            setTimeout(() => {
+                navigate("/auth/login")
+            }, 500)
+        }, 1500)
     }
 
     return (
@@ -53,6 +64,7 @@ const ForgotPasswordPage = () => {
                             type="primary"
                             htmlType="submit"
                             size="large"
+                            loading={isLoading}
                             style={{ borderRadius: 4 }}
                         >
                             Reset Password
