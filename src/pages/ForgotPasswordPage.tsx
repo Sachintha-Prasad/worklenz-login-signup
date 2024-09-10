@@ -3,20 +3,20 @@ import { UserOutlined } from "@ant-design/icons"
 import { Button, Flex, Form, Input, message, Typography } from "antd"
 import { Link, useNavigate } from "react-router-dom"
 import PageHeader from "../components/PageHeader"
+import { useTranslation } from "react-i18next"
 
 const ForgotPasswordPage = () => {
     const [form] = Form.useForm()
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
+    const { t } = useTranslation()
 
     const onFinish = (values: any) => {
         console.log("Received values of form: ", values)
         setIsLoading(true)
 
         setTimeout(() => {
-            message.success(
-                `Password reset mail was sent to your Email, check your inbox!`
-            )
+            message.success(t("messages.passwordResetSuccess"))
             setIsLoading(false)
             form.resetFields()
 
@@ -28,7 +28,7 @@ const ForgotPasswordPage = () => {
 
     return (
         <div>
-            <PageHeader description="Please enter your email address. You will receive a link to create a new password via email." />
+            <PageHeader description={t("headerDescriptions.forgotPassword")} />
             <Form
                 name="forgot-password"
                 form={form}
@@ -45,13 +45,13 @@ const ForgotPasswordPage = () => {
                         {
                             required: true,
                             type: "email",
-                            message: "Please enter your Email!"
+                            message: t("inputElements.emailRequired")
                         }
                     ]}
                 >
                     <Input
                         prefix={<UserOutlined />}
-                        placeholder="Enter your email"
+                        placeholder={t("inputElements.emailPlaceholder")}
                         size="large"
                         style={{ borderRadius: 4 }}
                     />
@@ -67,10 +67,10 @@ const ForgotPasswordPage = () => {
                             loading={isLoading}
                             style={{ borderRadius: 4 }}
                         >
-                            Reset Password
+                            {t("buttons.resetPassword")}
                         </Button>
                         <Typography.Text style={{ textAlign: "center" }}>
-                            OR
+                            {t("orText")}
                         </Typography.Text>
                         <Link to="/auth/login">
                             <Button
@@ -81,7 +81,7 @@ const ForgotPasswordPage = () => {
                                     borderRadius: 4
                                 }}
                             >
-                                Return to Login
+                                {t("buttons.returnToLogin")}
                             </Button>
                         </Link>
                     </Flex>

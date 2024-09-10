@@ -13,10 +13,12 @@ import {
 import googleIcon from "../assets/images/icons8-google.svg"
 import { Link, useNavigate } from "react-router-dom"
 import PageHeader from "../components/PageHeader"
+import { useTranslation } from "react-i18next"
 
 const LoginPage = () => {
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
+    const { t } = useTranslation()
 
     const onFinish = (values: any) => {
         console.log("Received values of form: ", values)
@@ -24,7 +26,7 @@ const LoginPage = () => {
 
         setTimeout(() => {
             setLoading(false)
-            message.success("You have successfuly logged!")
+            message.success(t("messages.loginSuccess"))
 
             setTimeout(() => {
                 navigate("/auth/user")
@@ -34,7 +36,7 @@ const LoginPage = () => {
 
     return (
         <div>
-            <PageHeader description="Log Into your account." />
+            <PageHeader description={t("headerDescriptions.login")} />
             <Form
                 name="login"
                 layout="vertical"
@@ -50,13 +52,13 @@ const LoginPage = () => {
                         {
                             required: true,
                             type: "email",
-                            message: "Please input your Email!"
+                            message: t("inputElements.emailRequired")
                         }
                     ]}
                 >
                     <Input
                         prefix={<UserOutlined />}
-                        placeholder="Email"
+                        placeholder={t("inputElements.emailPlaceholder")}
                         size="large"
                         style={{ borderRadius: 4 }}
                     />
@@ -67,14 +69,14 @@ const LoginPage = () => {
                     rules={[
                         {
                             required: true,
-                            message: "Please input your Password!",
-                            min: 6
+                            message: t("inputElements.passwordRequired"),
+                            min: 8
                         }
                     ]}
                 >
                     <Input.Password
                         prefix={<LockOutlined />}
-                        placeholder="Password"
+                        placeholder={t("inputElements.passwordPlaceholder")}
                         size="large"
                         style={{ borderRadius: 4 }}
                     />
@@ -87,10 +89,12 @@ const LoginPage = () => {
                             valuePropName="checked"
                             noStyle
                         >
-                            <Checkbox>Remember me</Checkbox>
+                            <Checkbox>{t("buttons.rememberMe")}</Checkbox>
                         </Form.Item>
 
-                        <Link to="/auth/forgot-password">Forgot password</Link>
+                        <Link to="/auth/forgot-password">
+                            {t("buttons.forgotPassword")}
+                        </Link>
                     </Flex>
                 </Form.Item>
 
@@ -104,10 +108,10 @@ const LoginPage = () => {
                             loading={loading}
                             style={{ borderRadius: 4 }}
                         >
-                            Log in
+                            {t("buttons.login")}
                         </Button>
                         <Typography.Text style={{ textAlign: "center" }}>
-                            OR
+                            {t("orText")}
                         </Typography.Text>
                         <Button
                             block
@@ -124,7 +128,7 @@ const LoginPage = () => {
                                 alt="google icon"
                                 style={{ maxWidth: 20, width: "100%" }}
                             />
-                            Sign in with Google
+                            {t("buttons.signInWithGoogle")}
                         </Button>
                     </Flex>
                 </Form.Item>
@@ -132,11 +136,11 @@ const LoginPage = () => {
                 <Form.Item>
                     <Space>
                         <Typography.Text style={{ fontSize: 14 }}>
-                            Don’t have an account?
+                            {t("dontHaveAccount")}
                         </Typography.Text>
 
                         <Link to="/auth/signup" style={{ fontSize: 14 }}>
-                            Sign Up
+                            {t("buttons.signup")}
                         </Link>
                     </Space>
                 </Form.Item>
