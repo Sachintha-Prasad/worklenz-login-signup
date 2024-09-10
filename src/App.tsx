@@ -13,7 +13,7 @@ import AuthLayout from "./layouts/AuthLayout"
 import UserPage from "./pages/UserPage"
 
 import { Button, ConfigProvider, Switch, theme } from "antd"
-import { MoonOutlined } from "@ant-design/icons"
+import { MoonOutlined, SunOutlined } from "@ant-design/icons"
 
 const { darkAlgorithm, defaultAlgorithm } = theme
 
@@ -58,7 +58,7 @@ const App = () => {
 
             <Button
                 type={isDarkModeEnabled ? "primary" : "default"}
-                icon={<MoonOutlined />}
+                icon={isDarkModeEnabled ? <SunOutlined /> : <MoonOutlined />}
                 shape="circle"
                 style={{ position: "absolute", top: 48, right: "10%" }}
                 onClick={handleDarkModeToggle}
