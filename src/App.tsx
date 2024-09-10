@@ -12,7 +12,8 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage"
 import AuthLayout from "./layouts/AuthLayout"
 import UserPage from "./pages/UserPage"
 
-import { ConfigProvider, Switch, theme } from "antd"
+import { Button, ConfigProvider, Switch, theme } from "antd"
+import { MoonOutlined } from "@ant-design/icons"
 
 const { darkAlgorithm, defaultAlgorithm } = theme
 
@@ -49,11 +50,20 @@ const App = () => {
                 }
             }}
         >
-            <Switch
+            {/* <Switch
                 onChange={handleDarkModeToggle}
                 style={{ position: "absolute", top: 48, right: "10%" }}
                 title="theme-switch"
+            /> */}
+
+            <Button
+                type={isDarkModeEnabled ? "primary" : "default"}
+                icon={<MoonOutlined />}
+                shape="circle"
+                style={{ position: "absolute", top: 48, right: "10%" }}
+                onClick={handleDarkModeToggle}
             />
+
             <RouterProvider router={router} />
         </ConfigProvider>
     )
