@@ -82,8 +82,17 @@ const SignupPage = () => {
                     rules={[
                         {
                             required: true,
-                            message: "Please input your Password!",
-                            min: 6
+                            message: "Please input your Password!"
+                        },
+                        {
+                            min: 8,
+                            message:
+                                "Password must contains atleast 8 characters!"
+                        },
+                        {
+                            pattern:
+                                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])/,
+                            message: "Password doesn't match the requirements!"
                         }
                     ]}
                 >
