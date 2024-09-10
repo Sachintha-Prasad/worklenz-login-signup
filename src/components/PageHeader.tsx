@@ -15,7 +15,7 @@ const PageHeader = ({ description }: PageHeaderProp) => {
                 style={{ width: "100%", maxWidth: 200 }}
             />
             <Typography.Text
-                style={{ color: "gray", maxWidth: 400, textAlign: "center" }}
+                style={{ color: "#8c8c8c", maxWidth: 400, textAlign: "center" }}
             >
                 {description}
             </Typography.Text>
