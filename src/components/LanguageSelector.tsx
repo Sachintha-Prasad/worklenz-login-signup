@@ -4,13 +4,18 @@ import { useTranslation } from "react-i18next"
 
 const LanguageSelector = () => {
     const { i18n } = useTranslation()
-    const [language, setLanguage] = useState("en")
+    const [language, setLanguage] = useState(i18n.language)
+
+    console.log(language)
 
     const handleLanguageChange = () => {
-        language === "en"
-            ? setLanguage("si")
-            : language === "si" && setLanguage("en")
-        i18n.changeLanguage(language)
+        if (language === "en") {
+            i18n.changeLanguage("si")
+            setLanguage("si")
+        } else if (language === "si") {
+            i18n.changeLanguage("en")
+            setLanguage("en")
+        }
     }
 
     return (

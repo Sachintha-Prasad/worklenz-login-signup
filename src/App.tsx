@@ -5,7 +5,7 @@ import {
     Route,
     RouterProvider
 } from "react-router-dom"
-import { Button, ConfigProvider, Flex, Space, theme } from "antd"
+import { Button, ConfigProvider, Flex, theme } from "antd"
 import { MoonOutlined, SunOutlined } from "@ant-design/icons"
 
 import LoginPage from "./pages/LoginPage"

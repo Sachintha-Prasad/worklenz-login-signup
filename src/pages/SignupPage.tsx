@@ -176,7 +176,7 @@ const SignupPage = () => {
                         </Typography.Text>
 
                         <Link to="/auth/login" style={{ fontSize: 14 }}>
-                            {t("buttons.signup")}
+                            {t("buttons.login")}
                         </Link>
                     </Space>
                 </Form.Item>
