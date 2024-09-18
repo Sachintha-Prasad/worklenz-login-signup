@@ -1,21 +1,22 @@
 import { Button, Typography } from "antd"
-import React, { useState } from "react"
+import React, { useEffect } from "react"
 import { useTranslation } from "react-i18next"
+import { useAppSelector } from "../../hooks/useAppSelector"
+import { useAppDispatch } from "../../hooks/useAppDispatch"
+import { toggleLng } from "./localesSlice"
 
 const LanguageSelector = () => {
     const { i18n } = useTranslation()
-    const [language, setLanguage] = useState(i18n.language)
+    const language = useAppSelector((state) => state.localesReducer.lng)
+    const dispatch = useAppDispatch()
 
-    console.log(language)
+    useEffect(() => {
+        i18n.changeLanguage(language)
+    }, [i18n, language])
 
+    // function for handle language change toggle
     const handleLanguageChange = () => {
-        if (language === "en") {
-            i18n.changeLanguage("si")
-            setLanguage("si")
-        } else if (language === "si") {
-            i18n.changeLanguage("en")
-            setLanguage("en")
-        }
+        dispatch(toggleLng())
     }
 
     return (
