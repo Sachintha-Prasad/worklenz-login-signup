@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import {
     createBrowserRouter,
     createRoutesFromElements,
@@ -13,13 +13,17 @@ import SignupPage from "./pages/SignupPage"
 import ForgotPasswordPage from "./pages/ForgotPasswordPage"
 import AuthLayout from "./layouts/AuthLayout"
 import UserPage from "./pages/UserPage"
-import LanguageSelector from "./components/LanguageSelector"
+import LanguageSelector from "./features/locales/LanguageSelector"
+import { useAppSelector } from "./hooks/useAppSelector"
+import { useAppDispatch } from "./hooks/useAppDispatch"
+import { toggleTheme } from "./features/theme/themeSlice"
 
 const App = () => {
-    const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(false)
+    const themeMode = useAppSelector((state) => state.themeReducer.mode)
+    const dispatch = useAppDispatch()
 
     const handleDarkModeToggle = () => {
-        setIsDarkModeEnabled((prev) => !prev)
+        dispatch(toggleTheme())
     }
 
     const router = createBrowserRouter(
@@ -40,12 +44,13 @@ const App = () => {
     return (
         <ConfigProvider
             theme={{
-                algorithm: isDarkModeEnabled
-                    ? theme.darkAlgorithm
-                    : theme.defaultAlgorithm,
+                algorithm:
+                    themeMode === "dark"
+                        ? theme.darkAlgorithm
+                        : theme.defaultAlgorithm,
                 components: {
                     Layout: {
-                        colorBgLayout: isDarkModeEnabled ? "black" : "white"
+                        colorBgLayout: themeMode === "dark" ? "black" : "white"
                     }
                 }
             }}
@@ -58,9 +63,13 @@ const App = () => {
             >
                 <LanguageSelector />
                 <Button
-                    type={isDarkModeEnabled ? "primary" : "default"}
+                    type={themeMode === "dark" ? "primary" : "default"}
                     icon={
-                        isDarkModeEnabled ? <SunOutlined /> : <MoonOutlined />
+                        themeMode === "dark" ? (
+                            <SunOutlined />
+                        ) : (
+                            <MoonOutlined />
+                        )
                     }
                     shape="circle"
                     onClick={handleDarkModeToggle}
