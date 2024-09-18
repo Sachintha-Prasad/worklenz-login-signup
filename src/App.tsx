@@ -5,8 +5,6 @@ import {
     Route,
     RouterProvider
 } from "react-router-dom"
-import { Button, ConfigProvider, Flex, theme } from "antd"
-import { MoonOutlined, SunOutlined } from "@ant-design/icons"
 
 import LoginPage from "./pages/LoginPage"
 import SignupPage from "./pages/SignupPage"
@@ -14,18 +12,11 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage"
 import AuthLayout from "./layouts/AuthLayout"
 import UserPage from "./pages/UserPage"
 import LanguageSelector from "./features/locales/LanguageSelector"
-import { useAppSelector } from "./hooks/useAppSelector"
-import { useAppDispatch } from "./hooks/useAppDispatch"
-import { toggleTheme } from "./features/theme/themeSlice"
+import ThemeWrapper from "./features/theme/ThemeWrapper"
+import { Flex } from "antd"
+import ThemeSelector from "./features/theme/ThemeSelector"
 
 const App = () => {
-    const themeMode = useAppSelector((state) => state.themeReducer.mode)
-    const dispatch = useAppDispatch()
-
-    const handleDarkModeToggle = () => {
-        dispatch(toggleTheme())
-    }
-
     const router = createBrowserRouter(
         createRoutesFromElements(
             <Route path="/">
@@ -42,19 +33,7 @@ const App = () => {
         )
     )
     return (
-        <ConfigProvider
-            theme={{
-                algorithm:
-                    themeMode === "dark"
-                        ? theme.darkAlgorithm
-                        : theme.defaultAlgorithm,
-                components: {
-                    Layout: {
-                        colorBgLayout: themeMode === "dark" ? "black" : "white"
-                    }
-                }
-            }}
-        >
+        <ThemeWrapper>
             <Flex
                 align="center"
                 justify="center"
@@ -62,22 +41,10 @@ const App = () => {
                 style={{ position: "absolute", top: 48, right: "10%" }}
             >
                 <LanguageSelector />
-                <Button
-                    type={themeMode === "dark" ? "primary" : "default"}
-                    icon={
-                        themeMode === "dark" ? (
-                            <SunOutlined />
-                        ) : (
-                            <MoonOutlined />
-                        )
-                    }
-                    shape="circle"
-                    onClick={handleDarkModeToggle}
-                />
+                <ThemeSelector />
             </Flex>
-
             <RouterProvider router={router} />
-        </ConfigProvider>
+        </ThemeWrapper>
     )
 }
 
