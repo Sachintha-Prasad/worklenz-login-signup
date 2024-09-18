@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
+import i18n from "./i18n"
 
 type LanguageType = "en" | "si"
 
@@ -31,6 +32,7 @@ const localesSlice = createSlice({
         toggleLng: (state) => {
             state.lng = state.lng === "en" ? "si" : "en"
             saveLanguageInLocalStorage(state.lng)
+            i18n.changeLanguage(getLanguageFromLocalStorage())
         }
     }
 })
