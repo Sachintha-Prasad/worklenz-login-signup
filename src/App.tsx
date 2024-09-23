@@ -10,40 +10,45 @@ import LoginPage from "./pages/LoginPage"
 import SignupPage from "./pages/SignupPage"
 import ForgotPasswordPage from "./pages/ForgotPasswordPage"
 import AuthLayout from "./layouts/AuthLayout"
-import UserPage from "./pages/UserPage"
-import LanguageSelector from "./features/locales/LanguageSelector"
 import ThemeWrapper from "./features/theme/ThemeWrapper"
-import { Flex } from "antd"
-import ThemeSelector from "./features/theme/ThemeSelector"
+import WorklenzMainLayout from "./layouts/WorklenzMainLayout"
+import Homepage from "./pages/home/Homepage"
+import ProjectPage from "./pages/projects/ProjectPage"
+import PreferenceSelector from "./components/PreferenceSelector"
+import NotFoundPage from "./pages/NotFoundPage"
 
 const App = () => {
     const router = createBrowserRouter(
         createRoutesFromElements(
             <Route path="/">
-                <Route path="/auth" element={<AuthLayout />}>
+                {/* worklenz app routes  */}
+                <Route path="/worklenz" element={<WorklenzMainLayout />}>
+                    <Route path="/worklenz/home" element={<Homepage />} />
+                    <Route
+                        path="/worklenz/projects"
+                        element={<ProjectPage />}
+                    />
+                </Route>
+
+                {/* auth routes */}
+                <Route path={"/auth"} element={<AuthLayout />}>
                     <Route path="/auth/login" element={<LoginPage />} />
                     <Route path="/auth/signup" element={<SignupPage />} />
                     <Route
                         path="/auth/forgot-password"
                         element={<ForgotPasswordPage />}
                     />
-                    <Route path="/auth/user" element={<UserPage />} />
                 </Route>
+
+                {/* not found pages */}
+                <Route path="*" element={<NotFoundPage />} />
             </Route>
         )
     )
     return (
         <ThemeWrapper>
-            <Flex
-                align="center"
-                justify="center"
-                gap={12}
-                style={{ position: "absolute", top: 48, right: "10%" }}
-            >
-                <LanguageSelector />
-                <ThemeSelector />
-            </Flex>
             <RouterProvider router={router} />
+            <PreferenceSelector />
         </ThemeWrapper>
     )
 }
