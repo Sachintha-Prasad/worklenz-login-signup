@@ -1,4 +1,4 @@
-import { Button, Typography } from "antd"
+import { Button } from "antd"
 import React from "react"
 import { useAppSelector } from "../../hooks/useAppSelector"
 import { useAppDispatch } from "../../hooks/useAppDispatch"
@@ -14,10 +14,12 @@ const LanguageSelector = () => {
     }
 
     return (
-        <Button shape="circle" onClick={handleLanguageChange}>
-            <Typography.Text style={{ textTransform: "capitalize" }} strong>
-                {language === "en" ? "En" : "සිං"}
-            </Typography.Text>
+        <Button
+            shape="circle"
+            onClick={handleLanguageChange}
+            style={{ textTransform: "capitalize", fontWeight: 500 }}
+        >
+            {language === "en" ? "En" : "සිං"}
         </Button>
     )
 }
