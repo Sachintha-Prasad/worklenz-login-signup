@@ -29,7 +29,7 @@ const LoginPage = () => {
             message.success(t("messages.loginSuccess"))
 
             setTimeout(() => {
-                navigate("/auth/user")
+                navigate("/worklenz/home")
             }, 500)
         }, 1500)
     }
