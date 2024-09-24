@@ -6,9 +6,9 @@ import {
     RouterProvider
 } from "react-router-dom"
 
-import LoginPage from "./pages/LoginPage"
-import SignupPage from "./pages/SignupPage"
-import ForgotPasswordPage from "./pages/ForgotPasswordPage"
+import LoginPage from "./pages/auth/LoginPage"
+import SignupPage from "./pages/auth/SignupPage"
+import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage"
 import AuthLayout from "./layouts/AuthLayout"
 import ThemeWrapper from "./features/theme/ThemeWrapper"
 import WorklenzMainLayout from "./layouts/WorklenzMainLayout"
