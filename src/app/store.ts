@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit"
 import themeReducer from "../features/theme/themeSlice"
 import localesReducer from "../features/locales/localesSlice"
+import projectReducer from "../features/projects/projectSlice"
 
 export const store = configureStore({
     reducer: {
         themeReducer: themeReducer,
-        localesReducer: localesReducer
+        localesReducer: localesReducer,
+        projectReducer: projectReducer
     }
 })
 
