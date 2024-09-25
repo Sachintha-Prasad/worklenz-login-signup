@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import { LockOutlined, UserOutlined } from "@ant-design/icons"
+import React, { useState } from 'react'
+import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import {
     Button,
     Checkbox,
@@ -8,35 +8,37 @@ import {
     Flex,
     Typography,
     Space,
-    message
-} from "antd"
-import googleIcon from "../assets/images/icons8-google.svg"
-import { Link, useNavigate } from "react-router-dom"
-import PageHeader from "../components/PageHeader"
-import { useTranslation } from "react-i18next"
+    message,
+} from 'antd'
+import googleIcon from '../../assets/images/icons8-google.svg'
+import { Link, useNavigate } from 'react-router-dom'
+import PageHeader from '../../components/PageHeader'
+import { useTranslation } from 'react-i18next'
 
 const LoginPage = () => {
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
-    const { t } = useTranslation()
+
+    // Localization
+    const { t } = useTranslation('loginPage')
 
     const onFinish = (values: any) => {
-        console.log("Received values of form: ", values)
+        console.log('Received values of form: ', values)
         setLoading(true)
 
         setTimeout(() => {
             setLoading(false)
-            message.success(t("messages.loginSuccess"))
+            message.success(t('successMessage'))
 
             setTimeout(() => {
-                navigate("/worklenz/home")
+                navigate('/worklenz/home')
             }, 500)
         }, 1500)
     }
 
     return (
         <div>
-            <PageHeader description={t("headerDescriptions.login")} />
+            <PageHeader description={t('headerDescription')} />
             <Form
                 name="login"
                 layout="vertical"
@@ -44,21 +46,21 @@ const LoginPage = () => {
                 requiredMark="optional"
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
-                style={{ marginInline: "auto", maxWidth: 400 }}
+                style={{ marginInline: 'auto', maxWidth: 400 }}
             >
                 <Form.Item
                     name="email"
                     rules={[
                         {
                             required: true,
-                            type: "email",
-                            message: t("inputElements.emailRequired")
-                        }
+                            type: 'email',
+                            message: t('emailRequired'),
+                        },
                     ]}
                 >
                     <Input
                         prefix={<UserOutlined />}
-                        placeholder={t("inputElements.emailPlaceholder")}
+                        placeholder={t('emailPlaceholder')}
                         size="large"
                         style={{ borderRadius: 4 }}
                     />
@@ -69,14 +71,14 @@ const LoginPage = () => {
                     rules={[
                         {
                             required: true,
-                            message: t("inputElements.passwordRequired"),
-                            min: 8
-                        }
+                            message: t('passwordRequired'),
+                            min: 8,
+                        },
                     ]}
                 >
                     <Input.Password
                         prefix={<LockOutlined />}
-                        placeholder={t("inputElements.passwordPlaceholder")}
+                        placeholder={t('passwordPlaceholder')}
                         size="large"
                         style={{ borderRadius: 4 }}
                     />
@@ -89,11 +91,11 @@ const LoginPage = () => {
                             valuePropName="checked"
                             noStyle
                         >
-                            <Checkbox>{t("buttons.rememberMe")}</Checkbox>
+                            <Checkbox>{t('rememberMe')}</Checkbox>
                         </Form.Item>
 
                         <Link to="/auth/forgot-password">
-                            {t("buttons.forgotPassword")}
+                            {t('forgotPasswordButton')}
                         </Link>
                     </Flex>
                 </Form.Item>
@@ -108,27 +110,27 @@ const LoginPage = () => {
                             loading={loading}
                             style={{ borderRadius: 4 }}
                         >
-                            {t("buttons.login")}
+                            {t('loginButton')}
                         </Button>
-                        <Typography.Text style={{ textAlign: "center" }}>
-                            {t("orText")}
+                        <Typography.Text style={{ textAlign: 'center' }}>
+                            {t('orText')}
                         </Typography.Text>
                         <Button
                             block
                             type="default"
                             size="large"
                             style={{
-                                display: "flex",
-                                alignItems: "center",
-                                borderRadius: 4
+                                display: 'flex',
+                                alignItems: 'center',
+                                borderRadius: 4,
                             }}
                         >
                             <img
                                 src={googleIcon}
                                 alt="google icon"
-                                style={{ maxWidth: 20, width: "100%" }}
+                                style={{ maxWidth: 20, width: '100%' }}
                             />
-                            {t("buttons.signInWithGoogle")}
+                            {t('signInWithGoogleButton')}
                         </Button>
                     </Flex>
                 </Form.Item>
@@ -136,11 +138,11 @@ const LoginPage = () => {
                 <Form.Item>
                     <Space>
                         <Typography.Text style={{ fontSize: 14 }}>
-                            {t("dontHaveAccount")}
+                            {t('dontHaveAccountText')}
                         </Typography.Text>
 
                         <Link to="/auth/signup" style={{ fontSize: 14 }}>
-                            {t("buttons.signup")}
+                            {t('signupButton')}
                         </Link>
                     </Space>
                 </Form.Item>
