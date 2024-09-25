@@ -1,7 +1,7 @@
-import { ConfigProvider, theme } from "antd"
-import React from "react"
-import { useAppSelector } from "../../hooks/useAppSelector"
-import { colors } from "../../styles/colors"
+import { ConfigProvider, theme } from 'antd'
+import React from 'react'
+import { useAppSelector } from '../../hooks/useAppSelector'
+import { colors } from '../../styles/colors'
 
 type ChildrenProp = {
     children: React.ReactNode
@@ -14,27 +14,27 @@ const ThemeWrapper = ({ children }: ChildrenProp) => {
         <ConfigProvider
             theme={{
                 algorithm:
-                    themeMode === "dark"
+                    themeMode === 'dark'
                         ? theme.darkAlgorithm
                         : theme.defaultAlgorithm,
                 components: {
                     Layout: {
                         colorBgLayout:
-                            themeMode === "dark"
+                            themeMode === 'dark'
                                 ? colors.darkGray
                                 : colors.white,
                         headerBg:
-                            themeMode === "dark"
+                            themeMode === 'dark'
                                 ? colors.darkGray
-                                : colors.white
+                                : colors.white,
                     },
                     Menu: {
-                        colorBgContainer: colors.transparent
+                        colorBgContainer: colors.transparent,
                     },
                     Button: {
-                        colorBgContainer: colors.transparent
-                    }
-                }
+                        colorBgContainer: colors.transparent,
+                    },
+                },
             }}
         >
             {children}

@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import logo from "../../assets/images/logo.png"
+import React, { useState } from 'react'
+import logo from '../../assets/images/logo.png'
 import {
     Avatar,
     Button,
@@ -10,48 +10,61 @@ import {
     Menu,
     Space,
     Tooltip,
-    Typography
-} from "antd"
-import { NavLink, useLocation } from "react-router-dom"
+    Typography,
+} from 'antd'
+import { NavLink, useLocation } from 'react-router-dom'
 import {
     BankOutlined,
     BellOutlined,
     CheckCircleTwoTone,
+    ClockCircleOutlined,
     DownOutlined,
+    HomeOutlined,
     MenuOutlined,
+    ProjectOutlined,
     QuestionCircleOutlined,
+    ReadOutlined,
     UsergroupAddOutlined,
-    UserOutlined
-} from "@ant-design/icons"
-import { useMediaQuery } from "react-responsive"
+    UserOutlined,
+} from '@ant-design/icons'
+import { useMediaQuery } from 'react-responsive'
+import { colors } from '../../styles/colors'
+import { useTranslation } from 'react-i18next'
 
 const Navbar = () => {
     const location = useLocation()
 
+    // Localization
+    const { t } = useTranslation('navbar')
+
+    // Mobile nav menu
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const handleMenuToggle = () => setIsMenuOpen((prevState) => !prevState)
 
     // Media queries from react-responsive package
-    const isMobile = useMediaQuery({ query: "(max-width: 576px)" })
-    const isTablet = useMediaQuery({ query: "(min-width: 576px)" })
-    const isDesktop = useMediaQuery({ query: "(min-width: 920px)" })
+    const isMobile = useMediaQuery({ query: '(max-width: 576px)' })
+    const isTablet = useMediaQuery({ query: '(min-width: 576px)' })
+    const isDesktop = useMediaQuery({ query: '(min-width: 1024px)' })
 
     // Function for setting the key of the current active nav link
     const currentActiveKey = () => {
-        if (location.pathname.includes("/home")) return "home"
-        if (location.pathname.includes("/projects")) return "projects"
-        if (location.pathname.includes("/schedules")) return "schedules"
-        if (location.pathname.includes("/reporting")) return "reporting"
-        return "path not matched"
+        if (location.pathname.includes('/home')) return 'home'
+        if (location.pathname.includes('/projects')) return 'projects'
+        if (location.pathname.includes('/schedules')) return 'schedules'
+        if (location.pathname.includes('/reporting')) return 'reporting'
+        return 'path not matched'
     }
 
     // Switch teams dropdown items
     const items = [
         {
-            key: "0",
+            key: '0',
             label: (
                 <Space>
-                    <Avatar size="small" style={{ backgroundColor: "#f56a00" }}>
+                    <Avatar
+                        size="small"
+                        style={{ backgroundColor: colors.vibrantOrange }}
+                    >
                         S
                     </Avatar>
                     <Flex vertical>
@@ -62,10 +75,10 @@ const Navbar = () => {
                         </Typography.Text>
                         <Typography.Text>Sachintha Prasad</Typography.Text>
                     </Flex>
-                    <CheckCircleTwoTone twoToneColor="#52c41a" />
+                    <CheckCircleTwoTone twoToneColor={colors.limeGreen} />
                 </Space>
-            )
-        }
+            ),
+        },
     ]
 
     return (
@@ -73,24 +86,24 @@ const Navbar = () => {
             xs={{ span: 20, offset: 2 }}
             sm={{ span: 22, offset: 1 }}
             style={{
-                width: "100%",
-                display: "flex",
+                width: '100%',
+                display: 'flex',
                 gap: 12,
-                alignItems: "center",
-                justifyContent: "space-between"
+                alignItems: 'center',
+                justifyContent: 'space-between',
             }}
         >
             {/* Logo */}
             <img
                 src={logo}
-                alt="logo"
-                style={{ width: "100%", maxWidth: 140 }}
+                alt={t('logoAlt')}
+                style={{ width: '100%', maxWidth: 140 }}
             />
             {isDesktop && (
                 <Flex
                     align="center"
                     justify="space-between"
-                    style={{ width: "100%" }}
+                    style={{ width: '100%' }}
                 >
                     <Menu
                         mode="horizontal"
@@ -98,82 +111,84 @@ const Navbar = () => {
                             flex: 10,
                             maxWidth: 400,
                             minWidth: 0,
-                            border: "none"
+                            border: 'none',
                         }}
                         defaultSelectedKeys={[currentActiveKey()]}
                         items={[
                             {
-                                key: "home",
+                                key: 'home',
                                 label: (
                                     <NavLink to="/worklenz/home">
                                         <Typography.Text strong>
-                                            Home
+                                            {t('home')}
                                         </Typography.Text>
                                     </NavLink>
-                                )
+                                ),
                             },
                             {
-                                key: "projects",
+                                key: 'projects',
                                 label: (
                                     <NavLink to="/worklenz/projects">
                                         <Typography.Text strong>
-                                            Projects
+                                            {t('projects')}
                                         </Typography.Text>
                                     </NavLink>
-                                )
+                                ),
                             },
                             {
-                                key: "schedules",
+                                key: 'schedules',
                                 label: (
                                     <NavLink to="/worklenz/schedules">
                                         <Typography.Text strong>
-                                            Schedules
+                                            {t('schedules')}
                                         </Typography.Text>
                                     </NavLink>
-                                )
+                                ),
                             },
                             {
-                                key: "reporting",
+                                key: 'reporting',
                                 label: (
                                     <NavLink to="/worklenz/reporting">
                                         <Typography.Text strong>
-                                            Reporting
+                                            {t('reporting')}
                                         </Typography.Text>
                                     </NavLink>
-                                )
-                            }
+                                ),
+                            },
                         ]}
                     />
-                    <Flex gap={8} align="center">
+                    <Flex gap={12} align="center">
                         <Button
                             style={{
-                                backgroundColor: "#fde8b5",
-                                color: "black"
+                                backgroundColor: colors.lightBeige,
+                                color: 'black',
                             }}
                         >
-                            Upgrade plan
+                            {t('upgradePlan')}
                         </Button>
-                        <Tooltip title="Add Team Member">
+                        <Tooltip title={t('inviteTooltip')}>
                             <Button
                                 type="dashed"
                                 icon={<UsergroupAddOutlined />}
                                 style={{
-                                    color: "#1890ff",
-                                    borderColor: "#1890ff"
+                                    color: colors.skyBlue,
+                                    borderColor: colors.skyBlue,
                                 }}
                             >
-                                Invite
+                                {t('invite')}
                             </Button>
                         </Tooltip>
-                        <Tooltip title="Switch Team">
-                            <Dropdown menu={{ items }} trigger={["click"]}>
+                        <Tooltip title={t('switchTeamTooltip')}>
+                            <Dropdown menu={{ items }} trigger={['click']}>
                                 <Button
                                     shape="round"
+                                    size="large"
                                     icon={<BankOutlined />}
                                     style={{
-                                        color: "#1890ff",
-                                        backgroundColor: "#ccefff",
-                                        borderColor: "#1890ff"
+                                        color: colors.skyBlue,
+                                        backgroundColor: colors.paleBlue,
+                                        border: 'none',
+                                        fontWeight: 500,
                                     }}
                                 >
                                     Sachintha Prasad
@@ -181,36 +196,36 @@ const Navbar = () => {
                                 </Button>
                             </Dropdown>
                         </Tooltip>
-                        <Tooltip title="Help">
+                        <Tooltip title={t('help')}>
                             <Button
                                 shape="circle"
                                 icon={<QuestionCircleOutlined />}
                                 size="large"
                                 style={{
-                                    border: "none",
-                                    boxShadow: "none"
+                                    border: 'none',
+                                    boxShadow: 'none',
                                 }}
                             />
                         </Tooltip>
-                        <Tooltip title="Notification">
+                        <Tooltip title={t('notificationTooltip')}>
                             <Button
                                 shape="circle"
                                 icon={<BellOutlined />}
                                 size="large"
                                 style={{
-                                    border: "none",
-                                    boxShadow: "none"
+                                    border: 'none',
+                                    boxShadow: 'none',
                                 }}
                             />
                         </Tooltip>
-                        <Tooltip title="Profile">
+                        <Tooltip title={t('profileTooltip')}>
                             <Button
                                 shape="circle"
                                 icon={<UserOutlined />}
                                 size="large"
                                 style={{
-                                    border: "none",
-                                    boxShadow: "none"
+                                    border: 'none',
+                                    boxShadow: 'none',
                                 }}
                             />
                         </Tooltip>
@@ -220,34 +235,36 @@ const Navbar = () => {
 
             {isTablet && !isDesktop && (
                 <Flex gap={8} align="center">
-                    <Dropdown menu={{ items }} trigger={["click"]}>
+                    <Dropdown menu={{ items }} trigger={['click']}>
                         <Button
                             shape="round"
+                            size="large"
                             icon={<BankOutlined />}
                             style={{
-                                color: "#1890ff",
-                                backgroundColor: "#ccefff",
-                                borderColor: "#1890ff"
+                                color: colors.skyBlue,
+                                backgroundColor: colors.paleBlue,
+                                border: 'none',
+                                fontWeight: 500,
                             }}
                         >
                             Sachintha Prasad
                             <DownOutlined />
                         </Button>
                     </Dropdown>
-                    <Tooltip title="Notification">
+                    <Tooltip title={t('notificationTooltip')}>
                         <Button
                             shape="circle"
                             icon={<BellOutlined />}
                             size="large"
-                            style={{ border: "none", boxShadow: "none" }}
+                            style={{ border: 'none', boxShadow: 'none' }}
                         />
                     </Tooltip>
-                    <Tooltip title="Profile">
+                    <Tooltip title={t('profileTooltip')}>
                         <Button
                             shape="circle"
                             icon={<UserOutlined />}
                             size="large"
-                            style={{ border: "none", boxShadow: "none" }}
+                            style={{ border: 'none', boxShadow: 'none' }}
                         />
                     </Tooltip>
 
@@ -255,7 +272,7 @@ const Navbar = () => {
                         shape="circle"
                         icon={<MenuOutlined />}
                         size="large"
-                        style={{ border: "none", boxShadow: "none" }}
+                        style={{ border: 'none', boxShadow: 'none' }}
                         onClick={handleMenuToggle}
                     />
                 </Flex>
@@ -268,7 +285,7 @@ const Navbar = () => {
                             shape="circle"
                             icon={<BellOutlined />}
                             size="large"
-                            style={{ border: "none", boxShadow: "none" }}
+                            style={{ border: 'none', boxShadow: 'none' }}
                         />
                     </Tooltip>
                     <Tooltip title="Profile">
@@ -276,7 +293,7 @@ const Navbar = () => {
                             shape="circle"
                             icon={<UserOutlined />}
                             size="large"
-                            style={{ border: "none", boxShadow: "none" }}
+                            style={{ border: 'none', boxShadow: 'none' }}
                         />
                     </Tooltip>
 
@@ -284,7 +301,7 @@ const Navbar = () => {
                         shape="circle"
                         icon={<MenuOutlined />}
                         size="large"
-                        style={{ border: "none", boxShadow: "none" }}
+                        style={{ border: 'none', boxShadow: 'none' }}
                         onClick={handleMenuToggle}
                     />
                 </Flex>
@@ -297,79 +314,84 @@ const Navbar = () => {
                             flex: 10,
                             maxWidth: 400,
                             minWidth: 0,
-                            border: "none"
+                            border: 'none',
                         }}
                         onClick={handleMenuToggle}
                         defaultSelectedKeys={[currentActiveKey()]}
                         items={[
                             {
-                                key: "home",
+                                key: 'home',
                                 label: (
                                     <NavLink to="/worklenz/home">
                                         <Typography.Text strong>
-                                            Home
+                                            {t('home')}
                                         </Typography.Text>
                                     </NavLink>
-                                )
+                                ),
+                                icon: <HomeOutlined />,
                             },
                             {
-                                key: "projects",
+                                key: 'projects',
                                 label: (
                                     <NavLink to="/worklenz/projects">
                                         <Typography.Text strong>
-                                            Projects
+                                            {t('projects')}
                                         </Typography.Text>
                                     </NavLink>
-                                )
+                                ),
+                                icon: <ProjectOutlined />,
                             },
                             {
-                                key: "schedules",
+                                key: 'schedules',
                                 label: (
                                     <NavLink to="/worklenz/schedules">
                                         <Typography.Text strong>
-                                            Schedules
+                                            {t('schedules')}
                                         </Typography.Text>
                                     </NavLink>
-                                )
+                                ),
+                                icon: <ClockCircleOutlined />,
                             },
                             {
-                                key: "reporting",
+                                key: 'reporting',
                                 label: (
                                     <NavLink to="/worklenz/reporting">
                                         <Typography.Text strong>
-                                            Reporting
+                                            {t('reporting')}
                                         </Typography.Text>
                                     </NavLink>
-                                )
+                                ),
+                                icon: <ReadOutlined />,
                             },
                             {
-                                key: "help",
+                                key: 'help',
                                 label: (
                                     <NavLink to="/worklenz/help">
                                         <Typography.Text strong>
-                                            Help
+                                            {t('help')}
                                         </Typography.Text>
                                     </NavLink>
-                                )
+                                ),
+                                icon: <QuestionCircleOutlined />,
                             },
                             {
-                                key: "plans",
+                                key: 'plans',
                                 style: {
                                     padding: 0,
-                                    backgroundColor: "transparent"
+                                    backgroundColor: 'transparent',
                                 },
                                 label: (
                                     <Button
                                         style={{
-                                            backgroundColor: "#fde8b5",
-                                            color: "black",
-                                            width: "100%"
+                                            backgroundColor: colors.lightBeige,
+                                            color: 'black',
+                                            width: '100%',
                                         }}
                                     >
-                                        Upgrade Plan
+                                        {t('upgradePlan')}
                                     </Button>
-                                )
-                            }
+                                ),
+                            },
                         ]}
                     />
                 </Flex>
