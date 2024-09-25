@@ -1,34 +1,36 @@
-import React, { useState } from "react"
-import { UserOutlined } from "@ant-design/icons"
-import { Button, Flex, Form, Input, message, Typography } from "antd"
-import { Link, useNavigate } from "react-router-dom"
-import PageHeader from "../components/PageHeader"
-import { useTranslation } from "react-i18next"
+import React, { useState } from 'react'
+import { UserOutlined } from '@ant-design/icons'
+import { Button, Flex, Form, Input, message, Typography } from 'antd'
+import { Link, useNavigate } from 'react-router-dom'
+import PageHeader from '../../components/PageHeader'
+import { useTranslation } from 'react-i18next'
 
 const ForgotPasswordPage = () => {
     const [form] = Form.useForm()
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
-    const { t } = useTranslation()
+
+    // Localization
+    const { t } = useTranslation('forgotPasswordPage')
 
     const onFinish = (values: any) => {
-        console.log("Received values of form: ", values)
+        console.log('Received values of form: ', values)
         setIsLoading(true)
 
         setTimeout(() => {
-            message.success(t("messages.passwordResetSuccess"))
+            message.success(t('passwordResetSuccessMessage'))
             setIsLoading(false)
             form.resetFields()
 
             setTimeout(() => {
-                navigate("/auth/login")
+                navigate('/auth/login')
             }, 500)
         }, 1500)
     }
 
     return (
         <div>
-            <PageHeader description={t("headerDescriptions.forgotPassword")} />
+            <PageHeader description={t('headerDescription')} />
             <Form
                 name="forgot-password"
                 form={form}
@@ -37,21 +39,21 @@ const ForgotPasswordPage = () => {
                 requiredMark="optional"
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
-                style={{ marginInline: "auto", maxWidth: 400 }}
+                style={{ marginInline: 'auto', maxWidth: 400 }}
             >
                 <Form.Item
                     name="email"
                     rules={[
                         {
                             required: true,
-                            type: "email",
-                            message: t("inputElements.emailRequired")
-                        }
+                            type: 'email',
+                            message: t('emailRequired'),
+                        },
                     ]}
                 >
                     <Input
                         prefix={<UserOutlined />}
-                        placeholder={t("inputElements.emailPlaceholder")}
+                        placeholder={t('emailPlaceholder')}
                         size="large"
                         style={{ borderRadius: 4 }}
                     />
@@ -67,10 +69,10 @@ const ForgotPasswordPage = () => {
                             loading={isLoading}
                             style={{ borderRadius: 4 }}
                         >
-                            {t("buttons.resetPassword")}
+                            {t('resetPasswordButton')}
                         </Button>
-                        <Typography.Text style={{ textAlign: "center" }}>
-                            {t("orText")}
+                        <Typography.Text style={{ textAlign: 'center' }}>
+                            {t('orText')}
                         </Typography.Text>
                         <Link to="/auth/login">
                             <Button
@@ -78,10 +80,10 @@ const ForgotPasswordPage = () => {
                                 type="default"
                                 size="large"
                                 style={{
-                                    borderRadius: 4
+                                    borderRadius: 4,
                                 }}
                             >
-                                {t("buttons.returnToLogin")}
+                                {t('returnToLoginButton')}
                             </Button>
                         </Link>
                     </Flex>
