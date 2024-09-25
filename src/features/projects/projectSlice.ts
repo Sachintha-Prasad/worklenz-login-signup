@@ -1,26 +1,26 @@
-import { createSlice } from "@reduxjs/toolkit"
-import { Project } from "../../types/project"
+import { createSlice } from '@reduxjs/toolkit'
+import { ProjectType } from '../../types/project'
 
 type ProjectState = {
-    projects: Project[]
+    projects: ProjectType[]
     isDrawerOpen: boolean
 }
 
 const initialState: ProjectState = {
     projects: [],
-    isDrawerOpen: false
+    isDrawerOpen: false,
 }
 
 const projectSlice = createSlice({
-    name: "project reducer",
+    name: 'project reducer',
     initialState,
     reducers: {
         toggleDrawer: (state) => {
             state.isDrawerOpen
                 ? (state.isDrawerOpen = false)
                 : (state.isDrawerOpen = true)
-        }
-    }
+        },
+    },
 })
 
 export const { toggleDrawer } = projectSlice.actions

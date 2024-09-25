@@ -30,6 +30,8 @@ import {
 import { useMediaQuery } from 'react-responsive'
 import { colors } from '../../styles/colors'
 import { useTranslation } from 'react-i18next'
+import NotificationButton from '../../features/notification/NotificationButton'
+import NotficationDrawer from '../../features/notification/NotficationDrawer'
 
 const Navbar = () => {
     const location = useLocation()
@@ -83,11 +85,10 @@ const Navbar = () => {
 
     return (
         <Col
-            xs={{ span: 20, offset: 2 }}
-            sm={{ span: 22, offset: 1 }}
             style={{
                 width: '100%',
                 display: 'flex',
+                paddingInline: isDesktop ? 48 : 24,
                 gap: 12,
                 alignItems: 'center',
                 justifyContent: 'space-between',
@@ -157,7 +158,7 @@ const Navbar = () => {
                             },
                         ]}
                     />
-                    <Flex gap={12} align="center">
+                    <Flex gap={16} align="center">
                         <Button
                             style={{
                                 backgroundColor: colors.lightBeige,
@@ -196,37 +197,35 @@ const Navbar = () => {
                                 </Button>
                             </Dropdown>
                         </Tooltip>
+                        <Tooltip title={t('notificationTooltip')}>
+                            <NotificationButton />
+                        </Tooltip>
                         <Tooltip title={t('help')}>
                             <Button
                                 shape="circle"
-                                icon={<QuestionCircleOutlined />}
                                 size="large"
                                 style={{
                                     border: 'none',
                                     boxShadow: 'none',
                                 }}
-                            />
-                        </Tooltip>
-                        <Tooltip title={t('notificationTooltip')}>
-                            <Button
-                                shape="circle"
-                                icon={<BellOutlined />}
-                                size="large"
-                                style={{
-                                    border: 'none',
-                                    boxShadow: 'none',
-                                }}
+                                children={
+                                    <QuestionCircleOutlined
+                                        style={{ fontSize: 20 }}
+                                    />
+                                }
                             />
                         </Tooltip>
                         <Tooltip title={t('profileTooltip')}>
                             <Button
                                 shape="circle"
-                                icon={<UserOutlined />}
                                 size="large"
                                 style={{
                                     border: 'none',
                                     boxShadow: 'none',
                                 }}
+                                children={
+                                    <UserOutlined style={{ fontSize: 20 }} />
+                                }
                             />
                         </Tooltip>
                     </Flex>
@@ -252,61 +251,55 @@ const Navbar = () => {
                         </Button>
                     </Dropdown>
                     <Tooltip title={t('notificationTooltip')}>
-                        <Button
-                            shape="circle"
-                            icon={<BellOutlined />}
-                            size="large"
-                            style={{ border: 'none', boxShadow: 'none' }}
-                        />
+                        <NotificationButton />
                     </Tooltip>
                     <Tooltip title={t('profileTooltip')}>
                         <Button
                             shape="circle"
-                            icon={<UserOutlined />}
                             size="large"
                             style={{ border: 'none', boxShadow: 'none' }}
+                            children={<UserOutlined style={{ fontSize: 20 }} />}
                         />
                     </Tooltip>
 
                     <Button
                         shape="circle"
-                        icon={<MenuOutlined />}
                         size="large"
                         style={{ border: 'none', boxShadow: 'none' }}
                         onClick={handleMenuToggle}
+                        children={<MenuOutlined style={{ fontSize: 20 }} />}
                     />
                 </Flex>
             )}
 
             {isMobile && (
                 <Flex align="center">
-                    <Tooltip title="Notification">
-                        <Button
-                            shape="circle"
-                            icon={<BellOutlined />}
-                            size="large"
-                            style={{ border: 'none', boxShadow: 'none' }}
-                        />
+                    <Tooltip title={t('notificationTooltip')}>
+                        <NotificationButton />
                     </Tooltip>
-                    <Tooltip title="Profile">
+                    <Tooltip title={t('profileTooltip')}>
                         <Button
                             shape="circle"
-                            icon={<UserOutlined />}
                             size="large"
                             style={{ border: 'none', boxShadow: 'none' }}
+                            children={<UserOutlined style={{ fontSize: 20 }} />}
                         />
                     </Tooltip>
 
                     <Button
                         shape="circle"
-                        icon={<MenuOutlined />}
                         size="large"
                         style={{ border: 'none', boxShadow: 'none' }}
                         onClick={handleMenuToggle}
+                        children={<MenuOutlined style={{ fontSize: 20 }} />}
                     />
                 </Flex>
             )}
 
+            {/* notification drawer */}
+            <NotficationDrawer />
+
+            {/* mobile menu drawer  */}
             <Drawer open={isMenuOpen} onClose={handleMenuToggle}>
                 <Flex>
                     <Menu

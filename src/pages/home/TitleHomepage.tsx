@@ -1,15 +1,19 @@
-import { Flex, Typography } from "antd"
-import React from "react"
-import { colors } from "../../styles/colors"
-import { currentDateString } from "../../utils/currentDateString"
-import CreateProjectButton from "../../features/projects/CreateProjectButton"
-import { useMediaQuery } from "react-responsive"
+import { Flex, Typography } from 'antd'
+import React from 'react'
+import { colors } from '../../styles/colors'
+import { currentDateString } from '../../utils/currentDateString'
+import CreateProjectButton from '../../features/projects/CreateProjectButton'
+import { useMediaQuery } from 'react-responsive'
+import { greetingString } from '../../utils/greetingString'
 
 const TitleHomepage = () => {
+    // get current date in specific format
     const date: string = currentDateString()
+    // get a greeting message based on the time
+    const greet: string = greetingString('Sachintha')
 
     // Media queries from react-responsive package
-    const isDesktop = useMediaQuery({ query: "(min-width: 1024px)" })
+    const isDesktop = useMediaQuery({ query: '(min-width: 1024px)' })
 
     return (
         <Flex vertical gap={8} align="center">
@@ -17,7 +21,7 @@ const TitleHomepage = () => {
                 level={3}
                 style={{ fontWeight: 500, marginBlock: 0 }}
             >
-                Hi Sachintha, Good morning!
+                {greet}
             </Typography.Title>
             <Typography.Title
                 level={4}
@@ -25,13 +29,13 @@ const TitleHomepage = () => {
                     fontSize: 16,
                     fontWeight: 400,
                     marginBlock: 0,
-                    color: colors.skyBlue
+                    color: colors.skyBlue,
                 }}
             >
                 {date}
             </Typography.Title>
             {isDesktop && (
-                <div style={{ position: "absolute", right: 0, top: 12 }}>
+                <div style={{ position: 'absolute', right: 0, top: 12 }}>
                     <CreateProjectButton />
                 </div>
             )}

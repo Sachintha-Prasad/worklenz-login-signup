@@ -1,6 +1,6 @@
-import { SyncOutlined } from "@ant-design/icons"
-import { Button, Card, Empty, Flex, Segmented, Table, Typography } from "antd"
-import React from "react"
+import { SyncOutlined } from '@ant-design/icons'
+import { Button, Card, Empty, Flex, Segmented, Table, Typography } from 'antd'
+import React from 'react'
 
 const ProjectsTable = () => {
     return (
@@ -10,12 +10,12 @@ const ProjectsTable = () => {
                 <Flex gap={8} align="center">
                     <Button shape="circle" icon={<SyncOutlined />} />
                     <Segmented<string>
-                        options={["Recent", "Favourites"]}
+                        options={['Recent', 'Favourites']}
                         defaultValue="Recent"
                     />
                 </Flex>
             }
-            style={{ width: "100%", maxWidth: 1200 }}
+            style={{ width: '100%' }}
         >
             <Table
                 showHeader={false}
@@ -24,13 +24,18 @@ const ProjectsTable = () => {
                         <Empty
                             image="https://app.worklenz.com/assets/images/empty-box.webp"
                             imageStyle={{ height: 60 }}
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                            }}
                             description={
                                 <Typography.Text>
                                     You have not assigned to any project yet.
                                 </Typography.Text>
                             }
                         />
-                    )
+                    ),
                 }}
             ></Table>
         </Card>
