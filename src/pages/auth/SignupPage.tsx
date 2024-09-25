@@ -1,59 +1,61 @@
-import React, { useState } from "react"
-import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons"
-import { Button, Form, Input, Typography, Space, Flex, message } from "antd"
-import googleIcon from "../assets/images/icons8-google.svg"
-import { Link, useNavigate } from "react-router-dom"
-import PageHeader from "../components/PageHeader"
-import { useTranslation } from "react-i18next"
+import React, { useState } from 'react'
+import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons'
+import { Button, Form, Input, Typography, Space, Flex, message } from 'antd'
+import googleIcon from '../../assets/images/icons8-google.svg'
+import { Link, useNavigate } from 'react-router-dom'
+import PageHeader from '../../components/PageHeader'
+import { useTranslation } from 'react-i18next'
 
 const SignupPage = () => {
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
-    const { t } = useTranslation()
+
+    // Localization
+    const { t } = useTranslation('signupPage')
 
     const onFinish = (values: any) => {
-        console.log("Received values of form: ", values)
+        console.log('Received values of form: ', values)
         setLoading(true)
 
         setTimeout(() => {
             setLoading(false)
-            message.success(t("messages.signupSuccess"))
+            message.success(t('signupSuccessMessage'))
 
             setTimeout(() => {
-                navigate("/auth/login")
+                navigate('/auth/login')
             }, 500)
         }, 1500)
     }
 
     return (
         <div>
-            <PageHeader description={t("headerDescriptions.signup")} />
+            <PageHeader description={t('headerDescription')} />
             <Form
                 name="signup"
                 layout="vertical"
                 autoComplete="off"
                 requiredMark="optional"
                 onFinish={onFinish}
-                style={{ marginInline: "auto", maxWidth: 400 }}
+                style={{ marginInline: 'auto', maxWidth: 400 }}
             >
                 <Form.Item
                     name="name"
-                    label={t("inputElements.nameLabel")}
+                    label={t('nameLabel')}
                     rules={[
                         {
                             required: true,
-                            message: t("inputElements.nameRequired"),
-                            whitespace: true
+                            message: t('nameRequired'),
+                            whitespace: true,
                         },
                         {
                             min: 4,
-                            message: t("inputElements.nameMinCharacterRequired")
-                        }
+                            message: t('nameMinCharacterRequired'),
+                        },
                     ]}
                 >
                     <Input
                         prefix={<UserOutlined />}
-                        placeholder={t("inputElements.namePlaceholder")}
+                        placeholder={t('namePlaceholder')}
                         size="large"
                         style={{ borderRadius: 4 }}
                     />
@@ -61,18 +63,18 @@ const SignupPage = () => {
 
                 <Form.Item
                     name="email"
-                    label={t("inputElements.emailLabel")}
+                    label={t('emailLabel')}
                     rules={[
                         {
                             required: true,
-                            type: "email",
-                            message: t("inputElements.emailRequired")
-                        }
+                            type: 'email',
+                            message: t('emailRequired'),
+                        },
                     ]}
                 >
                     <Input
                         prefix={<MailOutlined />}
-                        placeholder={t("inputElements.emailPlaceholder")}
+                        placeholder={t('emailPlaceholder')}
                         size="large"
                         style={{ borderRadius: 4 }}
                     />
@@ -80,55 +82,47 @@ const SignupPage = () => {
 
                 <Form.Item
                     name="password"
-                    label={t("inputElements.passwordLabel")}
+                    label={t('passwordLabel')}
                     rules={[
                         {
                             required: true,
-                            message: t("inputElements.passwordRequired")
+                            message: t('passwordRequired'),
                         },
                         {
                             min: 8,
-                            message: t(
-                                "inputElements.passwordMinCharacterRequired"
-                            )
+                            message: t('passwordMinCharacterRequired'),
                         },
                         {
                             pattern:
                                 /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])/,
-                            message: t("inputElements.passwordPatternRequired")
-                        }
+                            message: t('passwordPatternRequired'),
+                        },
                     ]}
                 >
                     <div>
                         <Input.Password
                             prefix={<LockOutlined />}
-                            placeholder={t(
-                                "inputElements.strongPasswordPlaceholder"
-                            )}
+                            placeholder={t('strongPasswordPlaceholder')}
                             size="large"
                             style={{ borderRadius: 4 }}
                         />
                         <Typography.Text
-                            style={{ fontSize: 12, color: "#8c8c8c" }}
+                            style={{ fontSize: 12, color: '#8c8c8c' }}
                         >
-                            {t("inputElements.passwordValidationAltText")}
+                            {t('passwordValidationAltText')}
                         </Typography.Text>
                     </div>
                 </Form.Item>
 
                 <Form.Item>
                     <Typography.Paragraph style={{ fontSize: 14 }}>
-                        {t("bySigningUpYouWillAgreeToOur")}
+                        {t('bySigningUpText')}
                         <Link to="/privacy-policy">
-                            {" "}
-                            {t("buttons.privacyPolicy")}
-                        </Link>{" "}
-                        {t("andText")}
-                        <Link to="/terms-of-use">
-                            {" "}
-                            {t("buttons.termsOfUse")}
-                        </Link>
-                        .
+                            {' '}
+                            {t('privacyPolicyLink')}
+                        </Link>{' '}
+                        {t('andText')}
+                        <Link to="/terms-of-use"> {t('termsOfUseLink')}</Link>.
                     </Typography.Paragraph>
                 </Form.Item>
 
@@ -142,11 +136,11 @@ const SignupPage = () => {
                             loading={loading}
                             style={{ borderRadius: 4 }}
                         >
-                            {t("buttons.signup")}
+                            {t('signupButton')}
                         </Button>
 
-                        <Typography.Text style={{ textAlign: "center" }}>
-                            {t("orText")}
+                        <Typography.Text style={{ textAlign: 'center' }}>
+                            {t('orText')}
                         </Typography.Text>
 
                         <Button
@@ -154,17 +148,17 @@ const SignupPage = () => {
                             type="default"
                             size="large"
                             style={{
-                                display: "flex",
-                                alignItems: "center",
-                                borderRadius: 4
+                                display: 'flex',
+                                alignItems: 'center',
+                                borderRadius: 4,
                             }}
                         >
                             <img
                                 src={googleIcon}
                                 alt="google icon"
-                                style={{ maxWidth: 20, width: "100%" }}
+                                style={{ maxWidth: 20, width: '100%' }}
                             />
-                            {t("buttons.signInWithGoogle")}
+                            {t('signInWithGoogleButton')}
                         </Button>
                     </Flex>
                 </Form.Item>
@@ -172,11 +166,11 @@ const SignupPage = () => {
                 <Form.Item>
                     <Space>
                         <Typography.Text style={{ fontSize: 14 }}>
-                            {t("alreadyHaveAccount")}
+                            {t('alreadyHaveAccountText')}
                         </Typography.Text>
 
                         <Link to="/auth/login" style={{ fontSize: 14 }}>
-                            {t("buttons.login")}
+                            {t('loginButton')}
                         </Link>
                     </Space>
                 </Form.Item>
