@@ -1,0 +1,17 @@
+{
+    "headerDescription": "ඔබගේ ගිණුමේ ලොග් වෙන්න",
+    "emailLabel": "ඊමේල්",
+    "emailPlaceholder": "ඔබගේ ඊමේල් ලිපිනය ඇතුළත් කරන්න",
+    "emailRequired": "කරුණාකර ඔබගේ ඊමේල් ඇතුළත් කරන්න!",
+    "passwordLabel": "මුරපදය",
+    "passwordPlaceholder": "ඔබගේ මුරපදය ඇතුළත් කරන්න",
+    "passwordRequired": "කරුණාකර ඔබගේ මුරපදය ඇතුළත් කරන්න!",
+    "rememberMe": "මට මතකය",
+    "loginButton": "ලොග් වෙන්න",
+    "signupButton": "ලියාපදිංචි වෙන්න",
+    "forgotPasswordButton": "මුරපදය අමතකවී ගොස්ද?",
+    "signInWithGoogleButton": "ගූගල් සමඟ ලොග් වෙන්න",
+    "successMessage": "ඔබ සාර්ථකව ලොග් වී ඇත!",
+    "dontHaveAccountText": "ගිණුමක් නැද්ද?",
+    "orText": "හෝ"
+}

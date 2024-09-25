@@ -1,14 +1,14 @@
-import { configureStore } from "@reduxjs/toolkit"
-import themeReducer from "../features/theme/themeSlice"
-import localesReducer from "../features/locales/localesSlice"
-import projectReducer from "../features/projects/projectSlice"
+import { configureStore } from '@reduxjs/toolkit'
+import themeReducer from '../features/theme/themeSlice'
+import localesReducer from '../features/i18n/localesSlice'
+import projectReducer from '../features/projects/projectSlice'
 
 export const store = configureStore({
     reducer: {
         themeReducer: themeReducer,
         localesReducer: localesReducer,
-        projectReducer: projectReducer
-    }
+        projectReducer: projectReducer,
+    },
 })
 
 export type RootState = ReturnType<typeof store.getState>

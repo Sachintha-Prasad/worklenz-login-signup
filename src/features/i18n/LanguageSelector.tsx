@@ -1,8 +1,8 @@
-import { Button } from "antd"
-import React from "react"
-import { useAppSelector } from "../../hooks/useAppSelector"
-import { useAppDispatch } from "../../hooks/useAppDispatch"
-import { toggleLng } from "./localesSlice"
+import { Button } from 'antd'
+import React from 'react'
+import { useAppSelector } from '../../hooks/useAppSelector'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
+import { toggleLng } from './localesSlice'
 
 const LanguageSelector = () => {
     const language = useAppSelector((state) => state.localesReducer.lng)
@@ -17,9 +17,9 @@ const LanguageSelector = () => {
         <Button
             shape="circle"
             onClick={handleLanguageChange}
-            style={{ textTransform: "capitalize", fontWeight: 500 }}
+            style={{ textTransform: 'capitalize', fontWeight: 500 }}
         >
-            {language === "en" ? "En" : "සිං"}
+            {language === 'en' ? 'En' : 'සිං'}
         </Button>
     )
 }
