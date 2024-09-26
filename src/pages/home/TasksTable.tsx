@@ -11,6 +11,7 @@ import {
     Tabs,
     Typography,
     Calendar,
+    Tooltip,
 } from 'antd'
 import React, { useState } from 'react'
 
@@ -59,11 +60,13 @@ const TasksTable = () => {
             }
             extra={
                 <Flex gap={8} align="center">
-                    <Button
-                        shape="circle"
-                        icon={<SyncOutlined spin={isSpin} />}
-                        onClick={() => handleSpinAnimation()}
-                    />
+                    <Tooltip title={'Refresh'} trigger={'hover'}>
+                        <Button
+                            shape="circle"
+                            icon={<SyncOutlined spin={isSpin} />}
+                            onClick={() => handleSpinAnimation()}
+                        />
+                    </Tooltip>
                     <Segmented<string>
                         options={['List', 'Calendar']}
                         defaultValue="List"
