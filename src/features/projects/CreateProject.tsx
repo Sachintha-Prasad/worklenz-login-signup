@@ -1,17 +1,32 @@
-import { Badge, Drawer, Form, Input, Select, Typography } from 'antd'
+import {
+    Badge,
+    Button,
+    DatePicker,
+    Drawer,
+    Dropdown,
+    Flex,
+    Form,
+    Input,
+    message,
+    Select,
+    Tag,
+    Typography,
+} from 'antd'
 import React from 'react'
 import { useAppSelector } from '../../hooks/useAppSelector'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
-import { toggleDrawer } from './projectSlice'
+import { createProject, toggleDrawer } from './projectSlice'
 import {
-    BlockOutlined,
     CheckCircleTwoTone,
     ClockCircleOutlined,
     ClockCircleTwoTone,
     CloseCircleTwoTone,
+    PlusCircleOutlined,
+    QuestionCircleOutlined,
     StopOutlined,
 } from '@ant-design/icons'
 import { colors } from '../../styles/colors'
+import { ProjectType } from '../../types/project'
 
 const CreateProject = () => {
     const isDrawerOpen = useAppSelector(
@@ -21,9 +36,23 @@ const CreateProject = () => {
 
     const [form] = Form.useForm()
 
+    // function for handle form submit
+    const handleFormSubmit = (values: any) => {
+        const newProject: ProjectType = {
+            name: values.name,
+            isFavourite: false,
+            color: values.color,
+        }
+        dispatch(createProject(newProject))
+        message.success('project created!')
+        form.resetFields()
+        dispatch(toggleDrawer())
+    }
+
+    // status selection options
     const statusOptions = [
         {
-            key: 'cancelled',
+            value: 'cancelled',
             label: (
                 <Typography.Text>
                     <CloseCircleTwoTone twoToneColor={colors.vibrantOrange} />{' '}
@@ -32,7 +61,7 @@ const CreateProject = () => {
             ),
         },
         {
-            key: 'blocked',
+            value: 'blocked',
             label: (
                 <Typography.Text>
                     <StopOutlined /> Blocked
@@ -40,7 +69,7 @@ const CreateProject = () => {
             ),
         },
         {
-            key: 'onHold',
+            value: 'onHold',
             label: (
                 <Typography.Text>
                     <StopOutlined /> On Hold
@@ -48,7 +77,7 @@ const CreateProject = () => {
             ),
         },
         {
-            key: 'proposed',
+            value: 'proposed',
             label: (
                 <Typography.Text>
                     <ClockCircleOutlined /> Proposed
@@ -56,7 +85,7 @@ const CreateProject = () => {
             ),
         },
         {
-            key: 'inPlanning',
+            value: 'inPlanning',
             label: (
                 <Typography.Text>
                     <ClockCircleOutlined /> In Planning
@@ -64,7 +93,7 @@ const CreateProject = () => {
             ),
         },
         {
-            key: 'inProgress',
+            value: 'inProgress',
             label: (
                 <Typography.Text>
                     <ClockCircleTwoTone twoToneColor={colors.limeGreen} /> In
@@ -73,7 +102,7 @@ const CreateProject = () => {
             ),
         },
         {
-            key: 'Completed',
+            value: 'Completed',
             label: (
                 <Typography.Text>
                     <CheckCircleTwoTone twoToneColor={colors.limeGreen} />{' '}
@@ -82,7 +111,7 @@ const CreateProject = () => {
             ),
         },
         {
-            key: 'continuos',
+            value: 'continuos',
             label: (
                 <Typography.Text>
                     <ClockCircleTwoTone twoToneColor={colors.limeGreen} />{' '}
@@ -92,9 +121,10 @@ const CreateProject = () => {
         },
     ]
 
+    // health selection options
     const healthOptions = [
         {
-            key: 'notSet',
+            value: 'notSet',
             label: (
                 <Typography.Text style={{ display: 'flex', gap: 4 }}>
                     <Badge color={colors.paleBlue} /> Not Set
@@ -102,7 +132,7 @@ const CreateProject = () => {
             ),
         },
         {
-            key: 'needAttention',
+            value: 'needAttention',
             label: (
                 <Typography.Text style={{ display: 'flex', gap: 4 }}>
                     <Badge color={colors.lightBeige} />
@@ -111,7 +141,7 @@ const CreateProject = () => {
             ),
         },
         {
-            key: 'atRish',
+            value: 'atRish',
             label: (
                 <Typography.Text style={{ display: 'flex', gap: 4 }}>
                     <Badge color={colors.vibrantOrange} /> At Risk
@@ -119,13 +149,47 @@ const CreateProject = () => {
             ),
         },
         {
-            key: 'good',
+            value: 'good',
             label: (
                 <Typography.Text style={{ display: 'flex', gap: 4 }}>
                     <Badge color={colors.limeGreen} /> Good
                 </Typography.Text>
             ),
         },
+    ]
+
+    const projectColors = [
+        '#154c9b',
+        '#3b7ad4',
+        '#70a6f3',
+        '#7781ca',
+        '#9877ca',
+        '#c178c9',
+        '#ee87c5',
+        '#ca7881',
+        '#75c9c0',
+        '#75c997',
+        '#80ca79',
+        '#aacb78',
+        '#cbbc78',
+        '#cb9878',
+        '#bb774c',
+    ]
+
+    const items = [
+        ...projectColors.map((color, index) => ({
+            key: index,
+            label: (
+                <Tag
+                    color={color}
+                    style={{
+                        width: 15,
+                        height: 15,
+                        borderRadius: '50%',
+                    }}
+                />
+            ),
+        })),
     ]
 
     return (
@@ -138,7 +202,7 @@ const CreateProject = () => {
             open={isDrawerOpen}
             onClose={() => dispatch(toggleDrawer())}
         >
-            <Form form={form} layout="vertical">
+            <Form form={form} layout="vertical" onFinish={handleFormSubmit}>
                 <Form.Item
                     label="Name"
                     name="name"
@@ -151,11 +215,94 @@ const CreateProject = () => {
                 >
                     <Input placeholder="Name" />
                 </Form.Item>
+                <Form.Item
+                    layout="horizontal"
+                    label="Project color"
+                    name="color"
+                    required
+                >
+                    <Dropdown
+                        menu={{ items }}
+                        overlayStyle={{
+                            height: 200,
+                            overflow: 'scroll',
+                            borderRadius: 8,
+                            boxShadow: `1px 1px 10px #5f5f5f1f`,
+                        }}
+                    >
+                        <Tag
+                            color="#154c9b"
+                            style={{
+                                width: 20,
+                                height: 20,
+                                borderRadius: '50%',
+                            }}
+                        />
+                    </Dropdown>
+                </Form.Item>
                 <Form.Item label="Status" name="status">
-                    <Select defaultValue={'Proposed'} options={statusOptions} />
+                    <Select defaultValue={'proposed'} options={statusOptions} />
                 </Form.Item>
                 <Form.Item label="Health" name="health">
-                    <Select defaultValue={'Not Set'} options={healthOptions} />
+                    <Select defaultValue={'notSet'} options={healthOptions} />
+                </Form.Item>
+                <Form.Item label="Categorey" name="categorey">
+                    <Select
+                        options={healthOptions}
+                        placeholder="Add a category to the project"
+                    />
+                </Form.Item>
+                <Form.Item label="Notes" name="notes">
+                    <Input.TextArea placeholder="Notes" />
+                </Form.Item>
+                <Form.Item
+                    label={
+                        <Typography.Text>
+                            Client <QuestionCircleOutlined />
+                        </Typography.Text>
+                    }
+                    name="client"
+                >
+                    <Input placeholder="Select client" />
+                </Form.Item>
+                <Form.Item
+                    label="Project Manager"
+                    name="projectManager"
+                    layout="horizontal"
+                >
+                    <Button
+                        type="dashed"
+                        shape="circle"
+                        icon={<PlusCircleOutlined />}
+                    />
+                </Form.Item>
+                <Form.Item name="date" layout="horizontal">
+                    <Flex gap={8}>
+                        <Form.Item name="startDate" label="Start Date">
+                            <DatePicker />
+                        </Form.Item>
+                        <Form.Item name="endDate" label="End Date">
+                            <DatePicker />
+                        </Form.Item>
+                    </Flex>
+                </Form.Item>
+                <Form.Item label="Estimate working days" name="estWorkingDays">
+                    <Input type="number" defaultValue="0" />
+                </Form.Item>
+                <Form.Item label="Estimate man days" name="estManDays">
+                    <Input type="number" defaultValue="0" />
+                </Form.Item>
+                <Form.Item label="Hours per day" name="hrsPerDay">
+                    <Input type="number" defaultValue="8" />
+                </Form.Item>
+                <Form.Item>
+                    <Button
+                        type="primary"
+                        style={{ width: '100%' }}
+                        htmlType="submit"
+                    >
+                        Create
+                    </Button>
                 </Form.Item>
             </Form>
         </Drawer>
