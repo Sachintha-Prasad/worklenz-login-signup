@@ -9,16 +9,16 @@ import {
     ProjectOutlined,
     QuestionCircleOutlined,
     ReadOutlined,
-    UsergroupAddOutlined,
-    UserOutlined,
 } from '@ant-design/icons'
 import { useMediaQuery } from 'react-responsive'
 import { colors } from '../../styles/colors'
 import { useTranslation } from 'react-i18next'
-import NotificationButton from '../../features/notification/NotificationButton'
-import NotficationDrawer from '../../features/notification/NotficationDrawer'
-import SwitchTeamButton from '../../features/switchTeam/SwitchTeamButton'
-import ProfileButton from '../../features/userProfile/ProfileButton'
+import NotificationButton from '../../features/navbar/notification/NotificationButton'
+import NotficationDrawer from '../../features/navbar/notification/NotficationDrawer'
+import SwitchTeamButton from '../../features/navbar/switchTeam/SwitchTeamButton'
+import ProfileButton from '../../features/navbar/userProfile/ProfileButton'
+import InviteButton from '../../features/navbar/addMember/InviteButton'
+import AddMemberDrawer from '../../features/navbar/addMember/AddMemberDrawer'
 
 const Navbar = () => {
     const location = useLocation()
@@ -128,23 +128,9 @@ const Navbar = () => {
                         >
                             {t('upgradePlan')}
                         </Button>
-                        <Tooltip title={t('inviteTooltip')}>
-                            <Button
-                                type="dashed"
-                                icon={<UsergroupAddOutlined />}
-                                style={{
-                                    color: colors.skyBlue,
-                                    borderColor: colors.skyBlue,
-                                }}
-                            >
-                                {t('invite')}
-                            </Button>
-                        </Tooltip>
-
+                        <InviteButton />
                         <SwitchTeamButton />
-
                         <NotificationButton />
-
                         <Tooltip title={t('help')}>
                             <Button
                                 shape="circle"
@@ -160,7 +146,6 @@ const Navbar = () => {
                                 }
                             />
                         </Tooltip>
-
                         <ProfileButton />
                     </Flex>
                 </Flex>
@@ -197,9 +182,10 @@ const Navbar = () => {
                 </Flex>
             )}
 
+            {/* add member drawer  */}
+            <AddMemberDrawer />
             {/* notification drawer */}
             <NotficationDrawer />
-
             {/* mobile menu drawer  */}
             <Drawer open={isMenuOpen} onClose={handleMenuToggle}>
                 <Flex>
