@@ -1,1 +1,5 @@
-export type ProjectType = {}
+export type ProjectType = {
+    name: string
+    isFavourite: boolean
+    color: string
+}
