@@ -13,7 +13,7 @@ import {
     Typography,
 } from 'antd'
 import React from 'react'
-import { colors } from '../../styles/colors'
+import { colors } from '../../../styles/colors'
 import { useTranslation } from 'react-i18next'
 
 const SwitchTeamButton = () => {
