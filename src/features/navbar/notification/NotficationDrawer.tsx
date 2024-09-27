@@ -1,7 +1,7 @@
 import { Drawer, Empty, Segmented, Typography } from 'antd'
 import React, { useState } from 'react'
-import { useAppSelector } from '../../hooks/useAppSelector'
-import { useAppDispatch } from '../../hooks/useAppDispatch'
+import { useAppSelector } from '../../../hooks/useAppSelector'
+import { useAppDispatch } from '../../../hooks/useAppDispatch'
 import { toggleDrawer } from './notificationSlice'
 
 const NotficationDrawer = () => {

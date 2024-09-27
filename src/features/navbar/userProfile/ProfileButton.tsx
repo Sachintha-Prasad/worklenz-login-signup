@@ -12,7 +12,7 @@ import {
 } from 'antd'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { colors } from '../../styles/colors'
+import { colors } from '../../../styles/colors'
 import { NavLink } from 'react-router-dom'
 
 const ProfileButton = () => {
